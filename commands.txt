@@ -8,3 +8,4 @@ Uninstall Traffic-UI
 ====================
 
 bash <(curl -Ls https://raw.githubusercontent.com/ScriptCascade/traffic-ui-open-source/main/uninstall.sh)
+

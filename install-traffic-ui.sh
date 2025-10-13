@@ -126,7 +126,7 @@ EOL' >>/tmp/traffic-ui-install.log 2>&1
     
     cp "$SCRIPT_DIR/Home.php" /var/www/html/app/Controllers/ >>/tmp/traffic-ui-install.log 2>&1
     
-    cp "$SCRIPT_DIR/home.php" /var/www/html/app/Views/ >>/tmp/traffic-ui-install.log 2>&1
+    cp "$SCRIPT_DIR/home-content.php" /var/www/html/app/Views/home.php >>/tmp/traffic-ui-install.log 2>&1
     
     cp "$SCRIPT_DIR/panel.txt" /var/www/html/public/ >>/tmp/traffic-ui-install.log 2>&1
     

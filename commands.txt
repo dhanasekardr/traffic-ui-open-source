@@ -1,20 +1,10 @@
 Install Traffic-UI
 ==================
 
-One-line install:
 bash <(curl -Ls https://raw.githubusercontent.com/ScriptCascade/traffic-ui-open-source/main/install.sh)
 
-OR
-
-Simple way:
-sudo bash install.sh
-
-OR
-
-Detailed way:
-chmod +x install-traffic-ui.sh
-sudo ./install-traffic-ui.sh
 
 Uninstall Traffic-UI
 ====================
-bash <(curl -Ls https://rebrand.ly/wu3c0wg)
+
+bash <(curl -Ls https://raw.githubusercontent.com/ScriptCascade/traffic-ui-open-source/main/uninstall.sh)

@@ -29,6 +29,40 @@ Restart() {
     fi
 }
 
+# Function to change server name
+Change_Server_Name() {
+    echo -e "\033[1;36mChange Server Name\033[0m"
+    echo ""
+    
+    # Get current server name from the view file
+    CURRENT_NAME=$(grep -oP '(?<=<h1 class="server-title">).*?(?=</h1>)' /var/www/html/app/Views/home.php 2>/dev/null)
+    
+    if [ -z "$CURRENT_NAME" ]; then
+        CURRENT_NAME="{{server_name}}"
+    fi
+    
+    echo "Current server name: $CURRENT_NAME"
+    echo ""
+    read -p "Enter new server name: " new_name
+    
+    if [ -z "$new_name" ]; then
+        echo "Error: Server name cannot be empty!"
+        return 1
+    fi
+    
+    # Update the server name in the view file
+    sed -i "s|<h1 class=\"server-title\">$CURRENT_NAME</h1>|<h1 class=\"server-title\">$new_name</h1>|g" /var/www/html/app/Views/home.php
+    
+    if [ $? -eq 0 ]; then
+        echo -e "\033[1;32m✓ Server name changed successfully to: $new_name\033[0m"
+        echo "Restarting Traffic-UI..."
+        systemctl restart apache2 > /dev/null 2>&1
+        echo "Done!"
+    else
+        echo "Error: Failed to update server name"
+    fi
+}
+
 # Function for setup ssl
 Setup_SSL() {
 
@@ -132,9 +166,10 @@ show_menu() {
 
     # Print menu options with green numbers
     echo -e "${GREEN}1)${RESET} Restart"
-    echo -e "${GREEN}2)${RESET} Setup SSL"
-    echo -e "${GREEN}3)${RESET} Uninstall"
-    echo -e "${GREEN}4)${RESET} Exit"
+    echo -e "${GREEN}2)${RESET} Change Server Name"
+    echo -e "${GREEN}3)${RESET} Setup SSL"
+    echo -e "${GREEN}4)${RESET} Uninstall"
+    echo -e "${GREEN}5)${RESET} Exit"
     
     # Reset color for the last line
     echo -e "===================================="
@@ -143,20 +178,23 @@ show_menu() {
 # Infinite loop for the menu
 while true; do
     show_menu
-    read -p "Please choose an option (1-7): " choice
+    read -p "Please choose an option (1-5): " choice
     
     case $choice in
         1)
             Restart
             ;;
         2)
-            Setup_SSL
+            Change_Server_Name
             ;;
         3)
+            Setup_SSL
+            ;;
+        4)
             Uninstall
             break
             ;;
-        4)
+        5)
             echo "Exiting the program."
             break
             ;;

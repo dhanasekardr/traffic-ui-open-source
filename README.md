@@ -7,7 +7,17 @@
 
 A beautiful, modern web dashboard for monitoring VPN panel user statistics and server health metrics in real-time.
 
-![Traffic-UI Dashboard](https://via.placeholder.com/800x400/0f172a/8b5cf6?text=Traffic-UI+Dashboard)
+## 📸 Screenshots
+
+<div align="center">
+
+### Dashboard Overview
+![Dashboard Overview](screenshots/Screenshot%202025-10-13%20145600.png)
+
+### Usage Statistics
+![Usage Statistics](screenshots/Screenshot%202025-10-13%20145606.png)
+
+</div>
 
 ---
 

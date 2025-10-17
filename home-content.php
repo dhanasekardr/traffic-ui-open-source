@@ -640,10 +640,10 @@
         }
 
 
-        /* Client Info Section */
+        /* Client Info Section - Compact */
         .client-info-section {
-            max-width: 600px;
-            margin: 0 auto 2rem;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
             animation: fadeSlideUp 1s ease 0.6s backwards;
         }
 
@@ -651,33 +651,33 @@
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(230, 57, 70, 0.2);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 1rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
 
         .client-info-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             box-shadow: 0 12px 40px rgba(230, 57, 70, 0.2);
         }
 
         .client-info-header {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-                margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid rgba(230, 57, 70, 0.1);
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(230, 57, 70, 0.1);
         }
 
         .client-info-header i {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--primary);
         }
 
         .client-info-header h3 {
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -689,30 +689,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .client-name {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
         }
 
         .client-status {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
             border-radius: 50px;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             background: rgba(239, 71, 111, 0.15);
             color: var(--danger);
             border: 1px solid rgba(239, 71, 111, 0.3);
+            flex-shrink: 0;
         }
 
         .client-status.online {
@@ -723,8 +727,8 @@
 
         .client-status::before {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: currentColor;
             animation: pulseGlow 2s ease-in-out infinite;

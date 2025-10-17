@@ -648,6 +648,96 @@
             animation: fadeSlideUp 0.8s ease 0.4s backwards;
         }
 
+        /* Client Info Section */
+        .client-info-section {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: fadeSlideUp 1s ease 0.6s backwards;
+        }
+
+        .client-info-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(230, 57, 70, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .client-info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(230, 57, 70, 0.2);
+        }
+
+        .client-info-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(230, 57, 70, 0.1);
+        }
+
+        .client-info-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .client-info-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .client-name-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .client-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .client-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: rgba(239, 71, 111, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 71, 111, 0.3);
+        }
+
+        .client-status.online {
+            background: rgba(6, 214, 160, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(6, 214, 160, 0.3);
+        }
+
+        .client-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -794,6 +884,20 @@
 
         <!-- Username Display -->
         <div id="username" class="username-display text-center"></div>
+        
+        <!-- Additional Client Name Display -->
+        <div class="client-info-section">
+            <div class="client-info-card">
+                <div class="client-info-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h3>Current Client</h3>
+                </div>
+                <div class="client-name-display" id="client-name-display">
+                    <span class="client-name" id="client-name">No client selected</span>
+                    <span class="client-status" id="client-status">Offline</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Stats Grid -->
         <div class="stats-grid">
@@ -1109,8 +1213,10 @@
             // Update the UI elements with new data from the response
             if (response.uuid == '') {
                 $('#username').html(response.email);
+                $('#client-name').html(response.email);
             } else {
                 $('#username').html(response.uuid);
+                $('#client-name').html(response.uuid);
             }
 
             $("input[name='hid-email']").val(response.email);
@@ -1133,10 +1239,12 @@
                 $('#status-badge').removeClass('inactive').addClass('active');
                 $('#enable').html('Active');
                 $('#enable-toggle').removeClass('fa-toggle-off').addClass('fa-toggle-on');
+                $('#client-status').removeClass('offline').addClass('online').html('Online');
             } else {
                 $('#status-badge').removeClass('active').addClass('inactive');
                 $('#enable').html('Disabled');
                 $('#enable-toggle').removeClass('fa-toggle-on').addClass('fa-toggle-off');
+                $('#client-status').removeClass('online').addClass('offline').html('Offline');
             }
 
             $('#remaining-time').html(response.remaining_days + ' days');
@@ -1167,6 +1275,10 @@
             $('#enable').html('Disabled');
             $('#enable-toggle').removeClass('fa-toggle-on').addClass('fa-toggle-off');
             $('#remaining-time').html('0 days');
+            
+            // Reset client display
+            $('#client-name').html('No client selected');
+            $('#client-status').removeClass('online').addClass('offline').html('Offline');
         }
 
         // Prevent right click

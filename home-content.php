@@ -449,7 +449,7 @@
         }
 
         .progress-percent {
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;

@@ -971,9 +971,9 @@
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-info-circle"></i>
-                                </div>
+                    </div>
                     <h3 class="card-title">Server Info</h3>
-                            </div>
+                </div>
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-icon">
@@ -982,8 +982,8 @@
                         <div class="info-content">
                             <div class="info-label">Uptime</div>
                             <div class="info-value uptime">N/A</div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-location-dot"></i>
@@ -991,8 +991,8 @@
                         <div class="info-content">
                             <div class="info-label">Location</div>
                             <div class="info-value"><?= $server_location ?></div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-network-wired"></i>
@@ -1000,8 +1000,8 @@
                         <div class="info-content">
                             <div class="info-label">IP Address</div>
                             <div class="info-value" style="font-family: 'Courier New', monospace;"><?= $server_ip ?></div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-signal"></i>

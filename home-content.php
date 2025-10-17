@@ -605,8 +605,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
-        }
+                margin-bottom: 0.75rem;
+            }
 
         .metric-label {
             font-size: 0.8rem;
@@ -639,14 +639,6 @@
             animation: fadeSlideUp 0.5s ease-out;
         }
 
-        /* Username Display */
-        .username-display {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 1rem;
-            animation: fadeSlideUp 0.8s ease 0.4s backwards;
-        }
 
         /* Client Info Section */
         .client-info-section {
@@ -674,7 +666,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+                margin-bottom: 1rem;
             padding-bottom: 0.75rem;
             border-bottom: 2px solid rgba(230, 57, 70, 0.1);
         }
@@ -859,7 +851,7 @@
             <div class="logo-badge">
                 <div class="logo-icon">
                     <i class="fas fa-bolt"></i>
-                </div>
+            </div>
                 <span style="font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px;">Premium Network</span>
             </div>
             <h1 class="main-title">TRAFFIC-UI</h1>
@@ -871,7 +863,7 @@
             <div class="search-card">
                 <?php echo form_open('/', 'id="get_usage" class="search-form"'); ?>
                     <input type="text" class="search-input" placeholder="Enter username or UUID" id="email" name="email" required>
-                    <input type="hidden" name="hid-email">
+                        <input type="hidden" name="hid-email">
                     <button type="submit" class="btn-search" id="usage_button">
                         <i class="fas fa-search me-2"></i> Check Usage
                     </button>
@@ -882,20 +874,17 @@
         <!-- Error Message -->
         <div id="error" class="error-message d-none" role="alert"></div>
 
-        <!-- Username Display -->
-        <div id="username" class="username-display text-center"></div>
-        
-        <!-- Additional Client Name Display -->
+        <!-- Client Name Display -->
         <div class="client-info-section">
             <div class="client-info-card">
                 <div class="client-info-header">
                     <i class="fas fa-user-circle"></i>
                     <h3>Current Client</h3>
-                </div>
+                    </div>
                 <div class="client-name-display" id="client-name-display">
                     <span class="client-name" id="client-name">No client selected</span>
                     <span class="client-status" id="client-status">Offline</span>
-                </div>
+                    </div>
             </div>
         </div>
 
@@ -921,7 +910,7 @@
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-circle-notch"></i>
-                    </div>
+                            </div>
                     <h3 class="card-title">Usage Progress</h3>
                 </div>
                 <div class="progress-circle-container">
@@ -945,32 +934,32 @@
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-server"></i>
-                    </div>
+                            </div>
                     <h3 class="card-title">Server Health</h3>
-                </div>
+                            </div>
                 <div class="metric-item">
                     <div class="metric-header">
                         <span class="metric-label">CPU Load</span>
                         <span class="metric-value cpu_usage">N/A</span>
-                    </div>
+                        </div>
                     <div class="modern-progress">
                         <div class="modern-progress-bar cpu-progress-bar" style="width: 0%"></div>
-                    </div>
-                </div>
+                            </div>
+                            </div>
                 <div class="metric-item">
                     <div class="metric-header">
                         <span class="metric-label">Memory</span>
                         <span class="metric-value ram_usage">N/A</span>
-                    </div>
+                        </div>
                     <div class="modern-progress">
                         <div class="modern-progress-bar ram-progress-bar" style="width: 0%"></div>
-                    </div>
-                </div>
+                            </div>
+                            </div>
                 <div class="metric-item">
                     <div class="metric-header">
                         <span class="metric-label">Storage</span>
                         <span class="metric-value disk_usage">N/A</span>
-                    </div>
+                        </div>
                     <div class="modern-progress">
                         <div class="modern-progress-bar disk-progress-bar" style="width: 0%"></div>
                     </div>
@@ -982,9 +971,9 @@
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-info-circle"></i>
-                    </div>
+                                </div>
                     <h3 class="card-title">Server Info</h3>
-                </div>
+                            </div>
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-icon">
@@ -993,8 +982,8 @@
                         <div class="info-content">
                             <div class="info-label">Uptime</div>
                             <div class="info-value uptime">N/A</div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-location-dot"></i>
@@ -1002,8 +991,8 @@
                         <div class="info-content">
                             <div class="info-label">Location</div>
                             <div class="info-value"><?= $server_location ?></div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-network-wired"></i>
@@ -1011,8 +1000,8 @@
                         <div class="info-content">
                             <div class="info-label">IP Address</div>
                             <div class="info-value" style="font-family: 'Courier New', monospace;"><?= $server_ip ?></div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-signal"></i>
@@ -1025,36 +1014,36 @@
                 </div>
             </div>
 
-            <!-- Account Status -->
+                        <!-- Account Status -->
             <div class="glass-card">
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-user-shield"></i>
-                    </div>
+                                    </div>
                     <h3 class="card-title">Account Status</h3>
-                </div>
+                                </div>
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-toggle-on" id="enable-toggle"></i>
-                        </div>
+                            </div>
                         <div class="info-content">
                             <div class="info-label">Status</div>
                             <div class="status-badge inactive" id="status-badge">
                                 <span class="status-dot"></span>
                                 <span id="enable">Active</span>
-                            </div>
                         </div>
-                    </div>
+                                    </div>
+                                </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-calendar"></i>
-                        </div>
+                            </div>
                         <div class="info-content">
                             <div class="info-label">Days Left</div>
                             <div class="info-value" id="remaining-time">0 days</div>
                         </div>
-                    </div>
+                                    </div>
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-database"></i>
@@ -1072,27 +1061,27 @@
                             <div class="info-label">Last Update</div>
                             <div class="info-value" id="last-update">Just now</div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                                </div>
+                            </div>
+                        </div>
 
             <!-- Connection Speed -->
             <div class="glass-card">
                 <div class="card-header">
                     <div class="card-icon">
                         <i class="fas fa-gauge-high"></i>
-                    </div>
+                                    </div>
                     <h3 class="card-title">Connection</h3>
-                </div>
+                                </div>
                 <div class="metric-item">
                     <div class="metric-header">
                         <span class="metric-label">Download</span>
                         <span class="metric-value" id="download-data">0 GB</span>
-                    </div>
+                            </div>
                     <div class="modern-progress">
                         <div class="modern-progress-bar" style="width: 0%" id="download-progress"></div>
+                        </div>
                     </div>
-                </div>
                 <div class="metric-item">
                     <div class="metric-header">
                         <span class="metric-label">Upload</span>
@@ -1121,88 +1110,84 @@
 
         $(document).ready(function() {
             $('#get_usage').on('submit', function(e) {
-                e.preventDefault();
+            e.preventDefault();
                 
                 var formData = new FormData(this);
                 $('#usage_button').html('<i class="fas fa-spinner fa-spin"></i> Checking...');
                 $('#usage_button').attr('disabled', true);
-                $('#error').addClass('d-none');
+            $('#error').addClass('d-none');
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/getusage',
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
+            $.ajax({
+                type: 'POST',
+                url: '/getusage',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
                     success: function(response) {
-                        $("input[name='csrf_test_name']").val(response.token);
+                    $("input[name='csrf_test_name']").val(response.token);
                         if (response.success) {
-                            // Update the UI with the initial data from the first request
-                            updateUsageData(response);
+                        // Update the UI with the initial data from the first request
+                        updateUsageData(response);
 
                             // Start a continuous fetch every 2 seconds
-                            fetchInterval = setInterval(function() {
+                        fetchInterval = setInterval(function() {
                                 var newFormData = new FormData();
                                 newFormData.append('csrf_test_name', $("input[name='csrf_test_name']").val());
-                                newFormData.append('email', $("input[name='email']").val());
+                            newFormData.append('email', $("input[name='email']").val());
 
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/getusage',
-                                    data: newFormData,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function(response) {
-                                        $("input[name='csrf_test_name']").val(response.token);
-                                        if (response.success) {
-                                            updateUsageData(response);
-                                        } else {
-                                            clearInterval(fetchInterval);
-                                            $("input[name='hid-email']").val('');
-                                            $('#error').html(response.error_msg);
-                                            $('#error').removeClass('d-none');
-                                            $('#username').html('');
-                                            resetUI();
+                            $.ajax({
+                                type: 'POST',
+                                url: '/getusage',
+                                data: newFormData,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                    $("input[name='csrf_test_name']").val(response.token);
+                                    if (response.success) {
+                                        updateUsageData(response);
+                                    } else {
+                                        clearInterval(fetchInterval);
+                                        $("input[name='hid-email']").val('');
+                                        $('#error').html(response.error_msg);
+                                        $('#error').removeClass('d-none');
+                                        resetUI();
                                         }
                                     },
                                     timeout: 10000,
-                                    error: function(xhr, status, error) {
-                                        if (status === "timeout") {
-                                            $('#error').html('Request timed out. Please try again.');
-                                        }
-                                        clearInterval(fetchInterval);
-                                        $("input[name='hid-email']").val('');
-                                        $('#usage_button').html('<i class="fas fa-search"></i> Check Usage');
-                                        $('#usage_button').removeAttr('disabled');
-                                        $('#error').html('Please reload the page and try again!');
-                                        $('#error').removeClass('d-none');
-                                        $('#username').html('');
+                                error: function(xhr, status, error) {
+                                    if (status === "timeout") {
+                                        $('#error').html('Request timed out. Please try again.');
+                                    }
+                                    clearInterval(fetchInterval);
+                                    $("input[name='hid-email']").val('');
+                                    $('#usage_button').html('<i class="fas fa-search"></i> Check Usage');
+                                    $('#usage_button').removeAttr('disabled');
+                                    $('#error').html('Please reload the page and try again!');
+                                    $('#error').removeClass('d-none');
                                         resetUI();
                                     }
                                 });
                             }, 2000);
                         } else {
-                            $("input[name='hid-email']").val('');
-                            $('#error').html(response.error_msg);
-                            $('#error').removeClass('d-none');
-                            $('#username').html('');
+                        $("input[name='hid-email']").val('');
+                        $('#error').html(response.error_msg);
+                        $('#error').removeClass('d-none');
                             resetUI();
                         }
                         $('#usage_button').html('<i class="fas fa-search"></i> Check Usage');
                         $('#usage_button').removeAttr('disabled');
                     },
                     timeout: 10000,
-                    error: function(xhr, status, error) {
-                        if (status === "timeout") {
-                            $('#error').html('Request timed out. Please try again.');
-                        }
-                        $('#usage_button').html('<i class="fas fa-search"></i> Check Usage');
-                        $('#usage_button').removeAttr('disabled');
-                        $('#error').html('Please reload the page and try again!');
-                        $('#error').removeClass('d-none');
-                        $('#username').html('');
+                error: function(xhr, status, error) {
+                    if (status === "timeout") {
+                        $('#error').html('Request timed out. Please try again.');
+                    }
+                    $('#usage_button').html('<i class="fas fa-search"></i> Check Usage');
+                    $('#usage_button').removeAttr('disabled');
+                    $('#error').html('Please reload the page and try again!');
+                    $('#error').removeClass('d-none');
                         resetUI();
                     }
                 });
@@ -1212,10 +1197,8 @@
         function updateUsageData(response) {
             // Update the UI elements with new data from the response
             if (response.uuid == '') {
-                $('#username').html(response.email);
                 $('#client-name').html(response.email);
             } else {
-                $('#username').html(response.uuid);
                 $('#client-name').html(response.uuid);
             }
 
@@ -1283,7 +1266,7 @@
 
         // Prevent right click
         document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
+                e.preventDefault();
             return false;
         });
 

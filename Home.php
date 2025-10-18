@@ -18,48 +18,79 @@ class Home extends BaseController {
 
     // Check if client is actually connected to 3x-ui
     private function check_client_connection($email) {
-        // Connect to the database
-        $db = \Config\Database::connect();
-        $builder = $db->table('inbounds');
-        
-        // Get all inbound settings
-        $query = $builder->select('settings')->get();
-        $results = $query->getResult();
-        
-        if ($results) {
-            foreach ($results as $result) {
-                $settings = json_decode($result->settings);
-                
-                if ($settings && isset($settings->clients)) {
-                    foreach ($settings->clients as $client) {
-                        if ($client->email == $email) {
-                            // Check if client has recent traffic (indicating connection)
-                            // This is a simple heuristic - if there's recent up/down traffic, consider connected
-                            $traffic_builder = $db->table('client_traffics');
-                            $traffic_query = $traffic_builder->select('up, down, last_handshake')
-                                                           ->where('email', $email)
-                                                           ->get();
-                            $traffic_result = $traffic_query->getRow();
-                            
-                            if ($traffic_result) {
-                                // Check if there's been recent activity (within last 5 minutes)
-                                $last_handshake = $traffic_result->last_handshake ?? 0;
-                                $current_time = time() * 1000; // Convert to milliseconds
-                                
-                                // If last handshake was within 5 minutes, consider connected
-                                if (($current_time - $last_handshake) < 300000) { // 5 minutes in milliseconds
-                                    return 1; // Connected
+        try {
+            // Connect to the database
+            $db = \Config\Database::connect();
+            $builder = $db->table('inbounds');
+            
+            // Get all inbound settings
+            $query = $builder->select('settings')->get();
+            $results = $query->getResult();
+            
+            if ($results) {
+                foreach ($results as $result) {
+                    $settings = json_decode($result->settings);
+                    
+                    if ($settings && isset($settings->clients)) {
+                        foreach ($settings->clients as $client) {
+                            if ($client->email == $email) {
+                                // Check if client has recent traffic (indicating connection)
+                                try {
+                                    $traffic_builder = $db->table('client_traffics');
+                                    
+                                    // First check if last_handshake column exists
+                                    $columns_query = $db->query("SHOW COLUMNS FROM client_traffics LIKE 'last_handshake'");
+                                    $column_exists = $columns_query->getRow();
+                                    
+                                    if ($column_exists) {
+                                        // Use last_handshake if available
+                                        $traffic_query = $traffic_builder->select('up, down, last_handshake')
+                                                                       ->where('email', $email)
+                                                                       ->get();
+                                        $traffic_result = $traffic_query->getRow();
+                                        
+                                        if ($traffic_result && isset($traffic_result->last_handshake)) {
+                                            $last_handshake = $traffic_result->last_handshake ?? 0;
+                                            $current_time = time() * 1000; // Convert to milliseconds
+                                            
+                                            // If last handshake was within 5 minutes, consider connected
+                                            if (($current_time - $last_handshake) < 300000) { // 5 minutes in milliseconds
+                                                return 1; // Connected
+                                            }
+                                        }
+                                    } else {
+                                        // Fallback: check if there's recent traffic activity
+                                        $traffic_query = $traffic_builder->select('up, down')
+                                                                       ->where('email', $email)
+                                                                       ->get();
+                                        $traffic_result = $traffic_query->getRow();
+                                        
+                                        if ($traffic_result) {
+                                            // Simple heuristic: if there's any traffic, consider potentially connected
+                                            // This is a fallback when last_handshake is not available
+                                            $total_traffic = ($traffic_result->up ?? 0) + ($traffic_result->down ?? 0);
+                                            if ($total_traffic > 0) {
+                                                return 1; // Assume connected if there's traffic
+                                            }
+                                        }
+                                    }
+                                    
+                                    return 0; // Not connected
+                                } catch (Exception $e) {
+                                    error_log("Error checking client connection: " . $e->getMessage());
+                                    return 0; // Default to not connected on error
                                 }
                             }
-                            
-                            return 0; // Not connected
                         }
                     }
                 }
             }
+            
+            return 0; // Not found or not connected
+        } catch (Exception $e) {
+            error_log("Error in check_client_connection: " . $e->getMessage());
+            return 0; // Default to not connected on error
         }
-        
-        return 0; // Not found or not connected
     }
 
     // Check account status
@@ -260,7 +291,14 @@ class Home extends BaseController {
         if ($result) {
             // Data found
             $enable = ($result->enable == 1) && $this->check_email_exists($username) ? 1 : 0;
-            $is_connected = $this->check_client_connection($username);
+            
+            // Try to get connection status, but don't fail if it errors
+            try {
+                $is_connected = $this->check_client_connection($username);
+            } catch (Exception $e) {
+                error_log("Error getting connection status: " . $e->getMessage());
+                $is_connected = 0; // Default to not connected
+            }
             
             // Debug: Log the enable calculation
             error_log("Debug - result->enable: " . $result->enable);

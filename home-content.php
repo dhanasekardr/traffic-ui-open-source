@@ -528,14 +528,12 @@
             animation: pulseGlow 2s ease-in-out infinite;
         }
 
-        /* Info Grid */
+        /* Info Grid - Flexbox Approach */
         .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             flex: 1;
-            min-height: 160px;
         }
 
         .info-item {
@@ -548,8 +546,9 @@
             border: 1px solid rgba(230, 57, 70, 0.15);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 70px;
-            height: 100%;
+            flex: 1 1 calc(50% - 0.5rem);
             box-sizing: border-box;
+            min-width: 0;
         }
 
         .info-item:hover {
@@ -580,6 +579,7 @@
             flex-direction: column;
             justify-content: center;
             gap: 0.25rem;
+            overflow: visible;
         }
 
         .info-label {
@@ -596,11 +596,12 @@
             font-size: 0.9rem;
             font-weight: 700;
             color: var(--text-primary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            overflow: visible;
+            text-overflow: unset;
+            white-space: normal;
             line-height: 1.2;
             margin: 0;
+            word-break: break-word;
         }
 
         .info-value[style*="font-family"] {
@@ -792,9 +793,12 @@
             }
             
             .info-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(4, auto);
-                min-height: auto;
+                flex-direction: column;
+            }
+            
+            .info-item {
+                flex: 1 1 auto;
+                width: 100%;
             }
 
             .search-section {

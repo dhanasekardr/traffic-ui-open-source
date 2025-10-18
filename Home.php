@@ -281,6 +281,11 @@ class Home extends BaseController {
             $data->ram_usage_percent = number_format((float)$ram_usage[1], 2, '.', '');
             $data->disk_space = $this->getDiskSpace();
             $data->server_status = $this->getServerStatus();
+            $data->upload_data = $formatted_up;
+            $data->download_data = $formatted_down;
+            $data->upload_bytes = $up;
+            $data->download_bytes = $down;
+            $data->total_bytes = $total;
 
             return $this->response->setJSON($data);
 

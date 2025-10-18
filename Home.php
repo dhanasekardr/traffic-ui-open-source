@@ -39,13 +39,12 @@ class Home extends BaseController {
                             return 1;
                         }
                     }
-                }else{
-                    return 0;
                 }
             }
-        }else{
-            return 0;
         }
+        
+        // Return 0 if no matching client found
+        return 0;
     }
 
     // Get CPU usage percentage
@@ -214,7 +213,7 @@ class Home extends BaseController {
 
         if ($result) {
             // Data found
-            $enable = $result->enable == 0 ? 0 : $this->check_email_exists($username);
+            $enable = ($result->enable == 1) && $this->check_email_exists($username) ? 1 : 0;
             $email = $result->email;
             $up = $result->up;
             $down = $result->down;

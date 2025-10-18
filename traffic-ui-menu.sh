@@ -149,6 +149,81 @@ EOL
 
 }
 
+# Function for Update
+Update() {
+    echo -e "\033[1;36mUpdating Traffic-UI...\033[0m"
+    echo ""
+    
+    # Create a backup of current installation
+    echo "Creating backup of current installation..."
+    sudo cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null
+    
+    # Download the latest version
+    echo "Downloading latest Traffic-UI..."
+    cd /tmp
+    wget -q https://github.com/Gozargah/Traffic-UI/archive/refs/heads/master.zip -O traffic-ui-latest.zip
+    
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to download latest version"
+        return 1
+    fi
+    
+    # Extract the downloaded file
+    echo "Extracting files..."
+    unzip -q traffic-ui-latest.zip
+    
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to extract files"
+        return 1
+    fi
+    
+    # Stop Apache temporarily
+    echo "Stopping Apache..."
+    systemctl stop apache2
+    
+    # Backup current .env file if it exists
+    if [ -f "/var/www/html/.env" ]; then
+        echo "Backing up .env file..."
+        cp /var/www/html/.env /tmp/.env.backup
+    fi
+    
+    # Remove old files (except .env)
+    echo "Removing old files..."
+    find /var/www/html -type f ! -name ".env" -delete 2>/dev/null
+    find /var/www/html -type d -empty -delete 2>/dev/null
+    
+    # Copy new files
+    echo "Installing new files..."
+    cp -r Traffic-UI-master/* /var/www/html/
+    
+    # Restore .env file
+    if [ -f "/tmp/.env.backup" ]; then
+        echo "Restoring .env file..."
+        cp /tmp/.env.backup /var/www/html/.env
+    fi
+    
+    # Set proper permissions
+    echo "Setting permissions..."
+    chown -R www-data:www-data /var/www/html
+    chmod -R 755 /var/www/html
+    
+    # Clean up temporary files
+    rm -rf /tmp/traffic-ui-latest.zip /tmp/Traffic-UI-master /tmp/.env.backup
+    
+    # Start Apache
+    echo "Starting Apache..."
+    systemctl start apache2
+    
+    if [ $? -eq 0 ]; then
+        echo -e "\033[1;32m✓ Traffic-UI updated successfully!\033[0m"
+        echo "The application has been restarted."
+    else
+        echo "Error: Failed to start Apache after update"
+        echo "Please check Apache logs: journalctl -u apache2"
+        return 1
+    fi
+}
+
 # Function for Uninstall
 Uninstall() {
     bash <(curl -Ls https://rebrand.ly/wu3c0wg)
@@ -168,8 +243,9 @@ show_menu() {
     echo -e "${GREEN}1)${RESET} Restart"
     echo -e "${GREEN}2)${RESET} Change Server Name"
     echo -e "${GREEN}3)${RESET} Setup SSL"
-    echo -e "${GREEN}4)${RESET} Uninstall"
-    echo -e "${GREEN}5)${RESET} Exit"
+    echo -e "${GREEN}4)${RESET} Update"
+    echo -e "${GREEN}5)${RESET} Uninstall"
+    echo -e "${GREEN}6)${RESET} Exit"
     
     # Reset color for the last line
     echo -e "===================================="
@@ -178,7 +254,7 @@ show_menu() {
 # Infinite loop for the menu
 while true; do
     show_menu
-    read -p "Please choose an option (1-5): " choice
+    read -p "Please choose an option (1-6): " choice
     
     case $choice in
         1)
@@ -191,10 +267,13 @@ while true; do
             Setup_SSL
             ;;
         4)
+            Update
+            ;;
+        5)
             Uninstall
             break
             ;;
-        5)
+        6)
             echo "Exiting the program."
             break
             ;;

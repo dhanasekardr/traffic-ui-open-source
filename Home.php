@@ -16,6 +16,52 @@ class Home extends BaseController {
         return view('home');
     }
 
+    // Check if client is actually connected to 3x-ui
+    private function check_client_connection($email) {
+        // Connect to the database
+        $db = \Config\Database::connect();
+        $builder = $db->table('inbounds');
+        
+        // Get all inbound settings
+        $query = $builder->select('settings')->get();
+        $results = $query->getResult();
+        
+        if ($results) {
+            foreach ($results as $result) {
+                $settings = json_decode($result->settings);
+                
+                if ($settings && isset($settings->clients)) {
+                    foreach ($settings->clients as $client) {
+                        if ($client->email == $email) {
+                            // Check if client has recent traffic (indicating connection)
+                            // This is a simple heuristic - if there's recent up/down traffic, consider connected
+                            $traffic_builder = $db->table('client_traffics');
+                            $traffic_query = $traffic_builder->select('up, down, last_handshake')
+                                                           ->where('email', $email)
+                                                           ->get();
+                            $traffic_result = $traffic_query->getRow();
+                            
+                            if ($traffic_result) {
+                                // Check if there's been recent activity (within last 5 minutes)
+                                $last_handshake = $traffic_result->last_handshake ?? 0;
+                                $current_time = time() * 1000; // Convert to milliseconds
+                                
+                                // If last handshake was within 5 minutes, consider connected
+                                if (($current_time - $last_handshake) < 300000) { // 5 minutes in milliseconds
+                                    return 1; // Connected
+                                }
+                            }
+                            
+                            return 0; // Not connected
+                        }
+                    }
+                }
+            }
+        }
+        
+        return 0; // Not found or not connected
+    }
+
     // Check account status
     private function check_email_exists($email){
 
@@ -214,10 +260,12 @@ class Home extends BaseController {
         if ($result) {
             // Data found
             $enable = ($result->enable == 1) && $this->check_email_exists($username) ? 1 : 0;
+            $is_connected = $this->check_client_connection($username);
             
             // Debug: Log the enable calculation
             error_log("Debug - result->enable: " . $result->enable);
             error_log("Debug - check_email_exists result: " . $this->check_email_exists($username));
+            error_log("Debug - check_client_connection result: " . $is_connected);
             error_log("Debug - final enable value: " . $enable);
             $email = $result->email;
             $up = $result->up;
@@ -290,6 +338,7 @@ class Home extends BaseController {
             $data->upload_bytes = $up;
             $data->download_bytes = $down;
             $data->total_bytes = $total;
+            $data->is_connected = $is_connected;
 
             return $this->response->setJSON($data);
 

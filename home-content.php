@@ -1057,7 +1057,7 @@
                             <div class="info-label">Status</div>
                             <div class="status-badge inactive" id="status-badge">
                                 <span class="status-dot"></span>
-                                <span id="enable">Active</span>
+                                <span id="enable">Disabled</span>
                         </div>
                                     </div>
                                 </div>
@@ -1248,17 +1248,27 @@
             document.querySelector('.progress-circle .usage-progress-bar').style.strokeDashoffset = offset;
 
             // Update status
+            console.log('Updating status with enable value:', response.enable);
             if (response.enable == 1) {
+                console.log('Setting status to ACTIVE/ONLINE');
                 $('#status-badge').removeClass('inactive').addClass('active');
                 $('#enable').html('Active');
                 $('#enable-toggle').removeClass('fa-toggle-off').addClass('fa-toggle-on');
                 $('#client-status').removeClass('offline').addClass('online').html('Online');
+                console.log('Status badge classes:', $('#status-badge').attr('class'));
+                console.log('Client status classes:', $('#client-status').attr('class'));
             } else {
+                console.log('Setting status to DISABLED/OFFLINE');
                 $('#status-badge').removeClass('active').addClass('inactive');
                 $('#enable').html('Disabled');
                 $('#enable-toggle').removeClass('fa-toggle-on').addClass('fa-toggle-off');
                 $('#client-status').removeClass('online').addClass('offline').html('Offline');
+                console.log('Status badge classes:', $('#status-badge').attr('class'));
+                console.log('Client status classes:', $('#client-status').attr('class'));
             }
+
+            // Ensure both status indicators are in sync
+            setTimeout(syncStatusIndicators, 100);
 
             $('#remaining-time').html(response.remaining_days + ' days');
 
@@ -1285,6 +1295,25 @@
             } else {
                 $('#download-progress').css('width', '0%');
                 $('#upload-progress').css('width', '0%');
+            }
+        }
+
+        // Function to ensure both status indicators are in sync
+        function syncStatusIndicators() {
+            const statusBadge = $('#status-badge');
+            const clientStatus = $('#client-status');
+            
+            console.log('Syncing status indicators...');
+            console.log('Status badge classes:', statusBadge.attr('class'));
+            console.log('Client status classes:', clientStatus.attr('class'));
+            
+            // Check if status badge is active
+            if (statusBadge.hasClass('active')) {
+                console.log('Status badge is active, ensuring client status is online');
+                clientStatus.removeClass('offline').addClass('online').html('Online');
+            } else {
+                console.log('Status badge is inactive, ensuring client status is offline');
+                clientStatus.removeClass('online').addClass('offline').html('Offline');
             }
         }
 

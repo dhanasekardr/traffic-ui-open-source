@@ -1247,29 +1247,19 @@
             let offset = 251.2 - (percentage * 251.2 / 100);
             document.querySelector('.progress-circle .usage-progress-bar').style.strokeDashoffset = offset;
 
-            // Update status based on actual connection status
+            // Update status based on enable status (simplified)
             console.log('Updating status with enable value:', response.enable);
-            console.log('Updating status with connection status:', response.is_connected);
             
-            // Use connection status for display, but still check if account is enabled
-            if (response.enable == 1 && response.is_connected == 1) {
-                console.log('Setting status to ONLINE (enabled and connected)');
+            if (response.enable == 1) {
+                console.log('Setting status to ACTIVE');
                 $('#status-badge').removeClass('inactive').addClass('active');
                 $('#enable').html('Active');
                 $('#enable-toggle').removeClass('fa-toggle-off').addClass('fa-toggle-on');
-                $('#client-status').removeClass('offline').addClass('online').html('Online');
-                console.log('Status badge classes:', $('#status-badge').attr('class'));
-                console.log('Client status classes:', $('#client-status').attr('class'));
-            } else if (response.enable == 1 && response.is_connected == 0) {
-                console.log('Setting status to OFFLINE (enabled but not connected)');
-                $('#status-badge').removeClass('inactive').addClass('active');
-                $('#enable').html('Active');
-                $('#enable-toggle').removeClass('fa-toggle-off').addClass('fa-toggle-on');
-                $('#client-status').removeClass('online').addClass('offline').html('Offline');
+                $('#client-status').removeClass('offline').addClass('online').html('Active');
                 console.log('Status badge classes:', $('#status-badge').attr('class'));
                 console.log('Client status classes:', $('#client-status').attr('class'));
             } else {
-                console.log('Setting status to INACTIVE (account disabled)');
+                console.log('Setting status to INACTIVE');
                 $('#status-badge').removeClass('active').addClass('inactive');
                 $('#enable').html('Disabled');
                 $('#enable-toggle').removeClass('fa-toggle-on').addClass('fa-toggle-off');

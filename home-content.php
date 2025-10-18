@@ -545,7 +545,8 @@
             border-radius: 12px;
             border: 1px solid rgba(230, 57, 70, 0.15);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 60px;
+            min-height: 70px;
+            height: 70px;
         }
 
         .info-item:hover {
@@ -584,12 +585,13 @@
         }
 
         .info-value {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--text-primary);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            line-height: 1.2;
         }
 
         /* Metric Bars */
@@ -993,7 +995,7 @@
                             <i class="fas fa-location-dot"></i>
                         </div>
                         <div class="info-content">
-                            <div class="info-label">Location</div>
+                            <div class="info-label">LOCATION</div>
                             <div class="info-value"><?= $server_location ?></div>
                         </div>
                     </div>
@@ -1011,7 +1013,7 @@
                             <i class="fas fa-signal"></i>
                         </div>
                         <div class="info-content">
-                            <div class="info-label">Status</div>
+                            <div class="info-label">STATUS</div>
                             <div class="info-value server_status" style="color: var(--success);">Online</div>
                         </div>
                     </div>

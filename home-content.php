@@ -1145,7 +1145,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/getusage',
+                url: '/getusage?_t=' + Date.now(),
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -1164,7 +1164,7 @@
 
                             $.ajax({
                                 type: 'POST',
-                                url: '/getusage',
+                                url: '/getusage?_t=' + Date.now(),
                                 data: newFormData,
                                 cache: false,
                                 contentType: false,
@@ -1221,6 +1221,10 @@
         });
 
         function updateUsageData(response) {
+            // Debug: Log the response to see what enable value we're getting
+            console.log('API Response:', response);
+            console.log('Enable value:', response.enable);
+            
             // Update the UI elements with new data from the response
             if (response.uuid == '') {
                 $('#client-name').html(response.email);

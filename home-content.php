@@ -532,8 +532,10 @@
         .info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem;
             flex: 1;
+            min-height: 160px;
         }
 
         .info-item {
@@ -546,7 +548,8 @@
             border: 1px solid rgba(230, 57, 70, 0.15);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 70px;
-            height: 70px;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .info-item:hover {
@@ -573,6 +576,10 @@
         .info-content {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.25rem;
         }
 
         .info-label {
@@ -581,17 +588,24 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            margin-bottom: 0.375rem;
+            margin: 0;
+            line-height: 1;
         }
 
         .info-value {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: var(--text-primary);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             line-height: 1.2;
+            margin: 0;
+        }
+
+        .info-value[style*="font-family"] {
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
 
         /* Metric Bars */
@@ -779,6 +793,8 @@
             
             .info-grid {
                 grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, auto);
+                min-height: auto;
             }
 
             .search-section {
@@ -986,7 +1002,7 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="info-content">
-                            <div class="info-label">Uptime</div>
+                            <div class="info-label">UPTIME</div>
                             <div class="info-value uptime">N/A</div>
                         </div>
                     </div>
@@ -1004,7 +1020,7 @@
                             <i class="fas fa-network-wired"></i>
                         </div>
                         <div class="info-content">
-                            <div class="info-label">IP Address</div>
+                            <div class="info-label">IP ADDRESS</div>
                             <div class="info-value" style="font-family: 'Courier New', monospace;"><?= $server_ip ?></div>
                         </div>
                     </div>

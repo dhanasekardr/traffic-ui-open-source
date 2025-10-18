@@ -158,57 +158,24 @@ Update() {
     echo "Creating backup of current installation..."
     sudo cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null
     
-    # Download the latest version
-    echo "Downloading latest Traffic-UI..."
-    cd /tmp
-    wget -q https://github.com/Gozargah/Traffic-UI/archive/refs/heads/master.zip -O traffic-ui-latest.zip
-    
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to download latest version"
-        return 1
-    fi
-    
-    # Extract the downloaded file
-    echo "Extracting files..."
-    unzip -q traffic-ui-latest.zip
-    
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to extract files"
-        return 1
-    fi
-    
-    # Stop Apache temporarily
-    echo "Stopping Apache..."
+    # Clear Apache cache and logs
+    echo "Clearing system cache..."
     systemctl stop apache2
+    rm -rf /var/log/apache2/access.log.* 2>/dev/null
+    rm -rf /var/log/apache2/error.log.* 2>/dev/null
+    rm -rf /tmp/sessions/* 2>/dev/null
     
-    # Backup current .env file if it exists
-    if [ -f "/var/www/html/.env" ]; then
-        echo "Backing up .env file..."
-        cp /var/www/html/.env /tmp/.env.backup
-    fi
-    
-    # Remove old files (except .env)
-    echo "Removing old files..."
-    find /var/www/html -type f ! -name ".env" -delete 2>/dev/null
-    find /var/www/html -type d -empty -delete 2>/dev/null
-    
-    # Copy new files
-    echo "Installing new files..."
-    cp -r Traffic-UI-master/* /var/www/html/
-    
-    # Restore .env file
-    if [ -f "/tmp/.env.backup" ]; then
-        echo "Restoring .env file..."
-        cp /tmp/.env.backup /var/www/html/.env
-    fi
+    # Clear PHP cache
+    echo "Clearing PHP cache..."
+    rm -rf /var/www/html/writable/cache/* 2>/dev/null
+    rm -rf /var/www/html/writable/logs/* 2>/dev/null
+    rm -rf /var/www/html/writable/session/* 2>/dev/null
     
     # Set proper permissions
     echo "Setting permissions..."
     chown -R www-data:www-data /var/www/html
     chmod -R 755 /var/www/html
-    
-    # Clean up temporary files
-    rm -rf /tmp/traffic-ui-latest.zip /tmp/Traffic-UI-master /tmp/.env.backup
+    chmod -R 777 /var/www/html/writable
     
     # Start Apache
     echo "Starting Apache..."
@@ -216,7 +183,9 @@ Update() {
     
     if [ $? -eq 0 ]; then
         echo -e "\033[1;32m✓ Traffic-UI updated successfully!\033[0m"
-        echo "The application has been restarted."
+        echo "Cache cleared and services restarted."
+        echo -e "\033[1;33mNote: This update clears cache and restarts services.\033[0m"
+        echo -e "\033[1;33mFor code updates, you need to manually replace files.\033[0m"
     else
         echo "Error: Failed to start Apache after update"
         echo "Please check Apache logs: journalctl -u apache2"

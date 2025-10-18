@@ -16,13 +16,6 @@ class Home extends BaseController {
         return view('home');
     }
 
-    // Check if client is actually connected to 3x-ui (simplified version)
-    private function check_client_connection($email) {
-        // For now, return 0 (not connected) to avoid database errors
-        // This can be enhanced later when we know the exact database structure
-        return 0;
-    }
-
     // Check account status
     private function check_email_exists($email){
 
@@ -220,13 +213,7 @@ class Home extends BaseController {
 
         if ($result) {
             // Data found
-            $enable = ($result->enable == 1) && $this->check_email_exists($username) ? 1 : 0;
-            $is_connected = 0; // Simplified for now - always show as not connected
-            
-            // Debug: Log the enable calculation
-            error_log("Debug - result->enable: " . $result->enable);
-            error_log("Debug - check_email_exists result: " . $this->check_email_exists($username));
-            error_log("Debug - final enable value: " . $enable);
+            $enable = $result->enable == 0 ? 0 : $this->check_email_exists($username);
             $email = $result->email;
             $up = $result->up;
             $down = $result->down;
@@ -298,7 +285,6 @@ class Home extends BaseController {
             $data->upload_bytes = $up;
             $data->download_bytes = $down;
             $data->total_bytes = $total;
-            $data->is_connected = $is_connected;
 
             return $this->response->setJSON($data);
 

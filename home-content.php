@@ -1221,10 +1221,6 @@
         });
 
         function updateUsageData(response) {
-            // Debug: Log the response to see what enable value we're getting
-            console.log('API Response:', response);
-            console.log('Enable value:', response.enable);
-            
             // Update the UI elements with new data from the response
             if (response.uuid == '') {
                 $('#client-name').html(response.email);
@@ -1247,29 +1243,18 @@
             let offset = 251.2 - (percentage * 251.2 / 100);
             document.querySelector('.progress-circle .usage-progress-bar').style.strokeDashoffset = offset;
 
-            // Update status based on enable status (simplified)
-            console.log('Updating status with enable value:', response.enable);
-            
+            // Update status
             if (response.enable == 1) {
-                console.log('Setting status to ACTIVE');
                 $('#status-badge').removeClass('inactive').addClass('active');
                 $('#enable').html('Active');
                 $('#enable-toggle').removeClass('fa-toggle-off').addClass('fa-toggle-on');
-                $('#client-status').removeClass('offline').addClass('online').html('Active');
-                console.log('Status badge classes:', $('#status-badge').attr('class'));
-                console.log('Client status classes:', $('#client-status').attr('class'));
+                $('#client-status').removeClass('offline').addClass('online').html('Online');
             } else {
-                console.log('Setting status to INACTIVE');
                 $('#status-badge').removeClass('active').addClass('inactive');
                 $('#enable').html('Disabled');
                 $('#enable-toggle').removeClass('fa-toggle-on').addClass('fa-toggle-off');
-                $('#client-status').removeClass('online').addClass('offline').html('Inactive');
-                console.log('Status badge classes:', $('#status-badge').attr('class'));
-                console.log('Client status classes:', $('#client-status').attr('class'));
+                $('#client-status').removeClass('online').addClass('offline').html('Offline');
             }
-
-            // Ensure both status indicators are in sync
-            setTimeout(syncStatusIndicators, 100);
 
             $('#remaining-time').html(response.remaining_days + ' days');
 
@@ -1296,29 +1281,6 @@
             } else {
                 $('#download-progress').css('width', '0%');
                 $('#upload-progress').css('width', '0%');
-            }
-        }
-
-        // Function to ensure both status indicators are in sync
-        function syncStatusIndicators() {
-            const statusBadge = $('#status-badge');
-            const clientStatus = $('#client-status');
-            
-            console.log('Syncing status indicators...');
-            console.log('Status badge classes:', statusBadge.attr('class'));
-            console.log('Client status classes:', clientStatus.attr('class'));
-            
-            // Check if status badge is active
-            if (statusBadge.hasClass('active')) {
-                // If account is active, check if client status shows online or offline
-                if (clientStatus.hasClass('online')) {
-                    console.log('Status badge is active and client is online - keeping online');
-                } else {
-                    console.log('Status badge is active but client is offline - keeping offline');
-                }
-            } else {
-                console.log('Status badge is inactive, ensuring client status is inactive');
-                clientStatus.removeClass('online').addClass('offline').html('Inactive');
             }
         }
 

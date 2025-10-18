@@ -214,6 +214,11 @@ class Home extends BaseController {
         if ($result) {
             // Data found
             $enable = ($result->enable == 1) && $this->check_email_exists($username) ? 1 : 0;
+            
+            // Debug: Log the enable calculation
+            error_log("Debug - result->enable: " . $result->enable);
+            error_log("Debug - check_email_exists result: " . $this->check_email_exists($username));
+            error_log("Debug - final enable value: " . $enable);
             $email = $result->email;
             $up = $result->up;
             $down = $result->down;

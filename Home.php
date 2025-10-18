@@ -92,7 +92,7 @@ class Home extends BaseController {
 
     // Get the server's overall status (could be more detailed in the future)
     private function getServerStatus(){
-        return 'Healthy'; // Placeholder, you could check specific server services here
+        return 'Online'; // Changed from 'Healthy' to match frontend display
     }
 
     // Check for uuid

@@ -12,10 +12,10 @@ A beautiful, modern web dashboard for monitoring VPN panel user statistics and s
 <div align="center">
 
 ### Dashboard Overview
-![Dashboard Overview](screenshots/Screenshot%202025-10-13%20145600.png)
+![Dashboard Overview](screenshots/Dashboard-Overview.png)
 
 ### Usage Statistics
-![Usage Statistics](screenshots/Screenshot%202025-10-13%20145606.png)
+![Usage Statistics](screenshots/Usage-Statistics.png)
 
 </div>
 
@@ -383,4 +383,5 @@ For support and questions:
 [⬆ Back to Top](#traffic-ui)
 
 </div>
+
 

